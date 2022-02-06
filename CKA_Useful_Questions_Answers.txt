@@ -1,0 +1,39 @@
+List of all Nodes
+kubectl get nodes 
+
+Expose the service on a perticular Port:
+kubectl expose pod_name --name service_name --port 6379 --target-port 6379 
+
+Create Deployment:
+kubectl create deployment deplyment_name --image=image_name
+
+Scaling of replicas sets
+kubectl scale deployment deployment_name --replicas=2
+
+Creating pod with command
+kubectl run pod_name --image=image_name --command=sleep 1000 --dry-run-client -o yaml > box.yaml
+
+kubectl get ns
+kubectl run pod_name --image=image_name --namespace namepspace_name --dry-run-client -o yaml>pod.yaml
+
+Version Update kubeadm (Based O.S UBUNTU)
+	apt update
+	apt install kubeadm=1.20.0-00
+	kubeadm upgrade apply v1.20.0
+	apt install kubelet=1.20.0-00
+	systemctl restart kubelet
+	
+ETCD BACKUP:
+
+etcdctl snapshot save --endpoints https://[127.0.0.1]:2379 --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key=/etc/kubernetes/pki/etcd/server.key  /opt/etcd-backup.db
+--- cd /etc/kubernetes/manifest then ls -ltr ETCD* to get values for other parameters
+
+ETCD RESTORE BACKUP:
+ETCDCTL_API=3 etcdctl  --data-dir /var/lib/etcd-from-backup \
+snapshot restore /opt/snapshot-pre-boot.db
+
+Verify Logs of ETCD CONTROLPLANE:
+kubectl -n kube-  logs etcd-controlplane
+
+KNOWING RUNNING VERSION OF ETCD CONTROLPLANE
+kubectl -n kube-  logs etcd-controlplane | grep -i version
