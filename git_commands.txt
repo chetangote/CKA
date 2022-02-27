@@ -1,0 +1,11 @@
+GIT USEFUL COMMANDS
+
+1. git init
+2. git --config user.name []
+3. git --config user.email []
+4. git status
+5. git add CKA.txt 
+6. git commit -m "First Commit"
+7. git ls-files	
+8. git show							List of file which are commited
+9. git log							COMIT details including commit ID
